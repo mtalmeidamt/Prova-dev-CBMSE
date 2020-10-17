@@ -4,21 +4,19 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <a class="navbar-brand" href="{{ route('index')  }}"><i class="fa fa-home" style="font-size: 35px"></i></a>
+        <a class="navbar-brand" href="{{ route('index') }}"><i class="fa fa-home" style="font-size: 35px"></i></a>
     </div>
 </nav>
-<br>
-@include('flash::message')
 <br>
 
 <div class="container">
     <div class="col-12">
-        <h2 style="text-align: center">Tipos de Contatos</h2>
+        <h2 style="text-align: center">Todas Pessoas</h2>
     </div>
     <div class="col-12">
         <div>
-            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#staticBackdrop" href="{{ route('pessoa.create') }}"><i class="fa fa-plus"></i> Adicionar</button>
-            <a type="button" class="btn btn-outline-danger" href="{{ route('index') }}"><i class="fa fa-backward"></i> Voltar</a>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop" href="{{ route('pessoa.create') }}"><i class="fa fa-plus"></i> Adicionar</button>
+            <a type="button" class="btn btn-danger" href="{{ route('index') }}"><i class="fa fa-backward"></i> Voltar</a>
         </div>
     </div>
 </div>
@@ -29,33 +27,20 @@
         <thead>
         <tr>
             <th>Nome</th>
+            <th>Sobrenome</th>
             <th>Ações</th>
         </tr>
         </thead>
         <tbody>
-        @foreach($tiposcontatos as $tiposcontato)
+        @foreach($pessoas as $pessoa)
             <tr>
-                <td>{{$tiposcontato->descricao}}</td>
+                <td>{{$pessoa->nome}}</td>
+                <td>{{$pessoa->sobrenome}}</td>
                 <td style="text-align: center">
-                    <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#confirm_{{$tiposcontato->id}}">
-                        <i class="fa fa-trash"></i></button>
-                    <div class="modal fade" id="confirm_{{$tiposcontato->id}}" role="dialog" data-backdrop="static">
-                        <div class="modal-dialog modal-md">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <p>Quer realmente excluir?</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <form action="{{ route('tipocontato.destroy', ['id' => $tiposcontato->id]) }}" method="post">
-                                        @method('delete')
-                                        @csrf
-                                        <button type="submit" value="Delete" class="btn btn-danger">Excluir</button>
-                                        <button type="submit" data-dismiss="modal" class="btn btn-default">Cancelar</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#staticBackdrop2" title="Adicionar Contatos" onclick="pegarPessoa({{ $pessoa->id }})">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                    <a type="button" class="btn btn-outline-secondary" href="{{ route('contato.show', [$pessoa->id])}}" title="Listar Contatos"><i class="fa fa-list-alt"></i></a>
                 </td>
             </tr>
         @endforeach
@@ -64,22 +49,28 @@
 </div>
 
 <!-- Modal Pessoa-->
-<form method="post" action="{{ route('tipocontato.store') }}">
+<form method="post" action="{{ route('pessoa.store') }}">
     @csrf
     <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Novo Tipo de Contato</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Nova Pessoa</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="form_contato">
-                        <div class="col">
-                            <label for="descricao">Descrição</label>
-                            <input type="text" class="form-control" id="descricao" name="descricao" required>
+                    <form>
+                        <div class="row">
+                            <div class="col">
+                                <label>Nome:</label>
+                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Informe o Nome" required>
+                            </div>
+                            <div class="col">
+                                <label>Sobrenome:</label>
+                                <input type="text" class="form-control" id="sobrenome" name="sobrenome" placeholder="Informe o Sobrenome" required>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -93,15 +84,58 @@
 </form>
 <!-- Fim Modal Pessoa-->
 
+<!-- Modal Contato-->
+<form method="post" action="{{ route('contato.store') }}">
+    @csrf
+    <div class="modal fade" id="staticBackdrop2" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Novo Cadastro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <input type="hidden" name="id_pessoa" value="" id="id_pessoa">
+                        <div class="row">
+                            <div class="col">
+                                <label>Tipo Contato:</label>
+                                <select name="tipos_contatos_id" class="form-control" id="selectOption" onchange="verifica(this.value)">
+                                    <option value="" disabled selected>Selecione</option>
+                                    @foreach($tiposContatos as $tiposContato)
+                                        <option value="{{$tiposContato->id}}">{{$tiposContato->descricao}}</option>
+                                    @endforeach
+                                </select>
 
-
-<!-- Modal Excluir-->
-<!-- Fim Modal Excluir-->
-
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="descricao">Descrição</label>
+                                <input type="text" class="form-control" id="contato" name="contato" placeholder="Informe o contato" disabled required>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!-- Fim Modal Contato-->
 
 </body>
 @includeIf('template.js')
 <script>
+    function pegarPessoa(id){
+        var pessoa_id = document.getElementById('id_pessoa');
+        pessoa_id.setAttribute('value', id);
+    }
     function verifica(value){
         let contato = document.getElementById("contato");
         if(value >= 1 && value <= 4){
@@ -110,25 +144,5 @@
             contato.disabled = true;
         }
     }
-
-
-    // $('#form_contato').on('submit', function (event){
-    //     event.preventDefault();
-    //     if($('descricao').val() == ""){
-    //         $("#msg-error").html('<div class="alert alert-danger" role="alert">Preenchar o campo descrição!</div>');
-    //     }
-    // else {
-    //     let dados = $('#form_contato').serialize();
-    //     $.post(dados, function (retorna) {
-    //         if(retorna){
-    //             $("#msg").html('<div class="alert alert-succes" role="alert">Tipo de contato cadastrado com sucesso!</div>');
-    //
-    //             $('#form_contato')[0].reset();
-    //
-    //             $('add')
-    //         }
-    //     })
-    // }
-    })
 </script>
 </html>
