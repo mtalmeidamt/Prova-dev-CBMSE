@@ -10,18 +10,6 @@ use Illuminate\Http\Request;
 class ContatoController extends Controller
 {
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $contatos = Contato::all();
-//        dd($contato);
-        return view('contato.create', compact('contatos'));
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -34,13 +22,11 @@ class ContatoController extends Controller
         $contato->contato = $request->contato;
 
         $contatos = Contato::all()->where('contato', '=', $request->contato);
-//        dd($contatos);
         if (count($contatos) != 0){
-//            dd('não funcionou');
             return redirect()->back();
         }else{
-//            dd('funcionou');
             if ($contato->save()){
+                flash('Contato Salvo com Sucesso!')->success();
                 return redirect()->route('pessoa.create');
             }else{
                 return redirect()->back();
@@ -57,7 +43,6 @@ class ContatoController extends Controller
     public function show($id)
     {
         $pessoas = Pessoa::find($id);
-//        dd($contato->$id);
 
         $tiposContatos = TipoContato::all();
 
@@ -76,7 +61,6 @@ class ContatoController extends Controller
      */
     public function update(Request $request, Contato $id)
     {
-//        dd($id);
         $id->contato = $request->contato;
 
         if($id->save()){
@@ -84,11 +68,6 @@ class ContatoController extends Controller
         }else{
             return back();
         }
-//        Contato::where(['id' => $id])->update([
-//            $contato->tipos_contatos_id = $request->tipos_contatos_id,
-//            $contato->contato = $request->contato,
-//        ]);
-//        return back();
     }
 
     /**
@@ -101,6 +80,5 @@ class ContatoController extends Controller
     {
         Contato::query()->find($id)->delete();
         return back();
-//        return redirect()->route('pessoa.create');
     }
 }

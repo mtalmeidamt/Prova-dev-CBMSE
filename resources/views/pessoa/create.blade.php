@@ -8,6 +8,8 @@
     </div>
 </nav>
 <br>
+@include('flash::message')
+<br>
 
 <div class="container">
     <div class="col-12">
@@ -15,8 +17,8 @@
     </div>
     <div class="col-12">
         <div>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop" href="{{ route('pessoa.create') }}"><i class="fa fa-plus"></i> Adicionar</button>
-            <a type="button" class="btn btn-danger" href="{{ route('index') }}"><i class="fa fa-backward"></i> Voltar</a>
+            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#staticBackdrop" href="{{ route('pessoa.create') }}"><i class="fa fa-plus"></i> Adicionar</button>
+            <a type="button" class="btn btn-outline-danger" href="{{ route('index') }}"><i class="fa fa-backward"></i> Voltar</a>
         </div>
     </div>
 </div>

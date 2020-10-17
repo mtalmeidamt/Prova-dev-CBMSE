@@ -28,11 +28,11 @@ class TipoContatoController extends Controller
     public function store(Request $request, TipoContato $tipoContato)
     {
         $tipoContato->descricao = $request->descricao;
-//        $tipoContato->save();
         if ($tipoContato->save()){
             flash('Tipo de Contato Adicionado com Sucesso!')->success();
             return redirect()->route('tipocontato.create');
         }else{
+            flash('Tipo de Contato não Adicionado!')->error();
             return redirect()->back();
         }
     }

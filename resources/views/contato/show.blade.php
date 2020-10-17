@@ -15,7 +15,7 @@
     </div>
     <div class="col-12">
         <div>
-            <a type="button" class="btn btn-danger" href="{{ route('pessoa.create') }}"><i class="fa fa-backward"></i> Voltar</a>
+            <a type="button" class="btn btn-outline-danger" href="{{ route('pessoa.create') }}"><i class="fa fa-backward"></i> Voltar</a>
         </div>
     </div>
 </div>
@@ -86,15 +86,8 @@
                                             <input type="hidden" name="id_pessoa" value="" id="id_pessoa">
                                             <div class="row">
                                                 <div class="col">
-                                                    <label>Tipo Contato:</label>
-                                                    <select name="tipos_contatos_id" class="form-control" id="selectOption">
-                                                        <option value="{{$contato->tipoContato->descricao}}" selected>
-                                                            {{$contato->tipoContato->descricao}}</option>
-                                                        @foreach($tiposContatos as $tiposContato)
-                                                            <option value="{{$tiposContato->id}}">{{$tiposContato->descricao}}</option>
-                                                        @endforeach
-                                                    </select>
-
+                                                    <label for="descricao">Tipo Contato:</label>
+                                                    <input type="text" value="{{$contato->tipoContato->descricao}}" class="form-control" id="conTipoContatoDescricao" name="conTipoContatoDescricao" placeholder="Informe o contato" disabled>
                                                 </div>
                                             </div>
                                             <div class="row">
