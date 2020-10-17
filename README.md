@@ -8,9 +8,9 @@
 </p>
 
 ## Passo a Passo
- #####1.0 - sudo make deploy_dev
- #####2.0 - sudo make install_dep
- #####3.0 - php artisan key:generate
- #####4.0 - Acesse o container em seguida coloca o comando 
-    4.1 - php artisan migrate
- #####5.0 - localhost:8001
+ - 1.0 - sudo make deploy_dev
+ - 2.0 - sudo make install_dep
+ - 3.0 - php artisan key:generate
+ - 4.0 - Acesse o container em seguida coloca o comando 
+    - 4.1 - php artisan migrate
+ - 5.0 - localhost:8001
