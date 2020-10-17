@@ -1,0 +1,4 @@
+ARG img
+FROM $img
+
+EXPOSE 80

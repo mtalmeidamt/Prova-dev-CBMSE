@@ -1,0 +1,34 @@
+version: '3'
+services:
+  agenda_dev:
+    container_name: agenda
+    build:
+      context: .
+      args:
+        - img=webdevops/php-apache-dev:7.4
+    ports:
+      - "8001:80"
+    volumes:
+      - ".:/app"
+    working_dir: "/app"
+    environment:
+      PHP_DATE_TIMEZONE: America/Maceio
+      XDEBUG_REMOTE_AUTOSTART: 1
+    networks:
+      - agenda
+  agenda_db:
+    container_name: postgres_db
+    image: postgres
+    environment:
+      POSTGRES_USER: "CBM"
+      POSTGRES_PASSWORD: "Postgres2020!"
+      POSTGRES_DB: "agenda"
+    ports:
+      - "5430:5432"
+    volumes:
+      - ".:/app"
+    networks:
+      - agenda
+networks:
+  agenda:
+    driver: bridge
