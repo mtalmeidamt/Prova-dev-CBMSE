@@ -101,34 +101,4 @@
 
 </body>
 @includeIf('template.js')
-<script>
-    function verifica(value){
-        let contato = document.getElementById("contato");
-        if(value >= 1 && value <= 4){
-            contato.disabled = false;
-        }else{
-            contato.disabled = true;
-        }
-    }
-
-
-    // $('#form_contato').on('submit', function (event){
-    //     event.preventDefault();
-    //     if($('descricao').val() == ""){
-    //         $("#msg-error").html('<div class="alert alert-danger" role="alert">Preenchar o campo descrição!</div>');
-    //     }
-    // else {
-    //     let dados = $('#form_contato').serialize();
-    //     $.post(dados, function (retorna) {
-    //         if(retorna){
-    //             $("#msg").html('<div class="alert alert-succes" role="alert">Tipo de contato cadastrado com sucesso!</div>');
-    //
-    //             $('#form_contato')[0].reset();
-    //
-    //             $('add')
-    //         }
-    //     })
-    // }
-    })
-</script>
 </html>

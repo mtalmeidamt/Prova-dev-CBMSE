@@ -36,15 +36,9 @@
                 <td>{{$contato->tipoContato->descricao}}</td>
                 <td>{{$contato->contato}}</td>
                 <td style="text-align: center">
-                    {{--                    <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#staticBackdrop2" title="Adicionar Contatos"">--}}
-                    {{--                        <i class="fa fa-plus"></i>--}}
-                    {{--                    </button>--}}
-
                     <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#staticBackdrop2_{{$contato->id}}" title="Editar Contatos">
                         <i class="fa fa-edit"></i>
                     </button>
-                {{--                    <a type="button" class="btn btn-outline-secondary" href="#" title="Editar Contatos"><i class="fa fa-edit"></i></a>--}}
-
                 <!-- Modal Excluir -->
                     <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#confirm_{{$contato->id}}">
                         <i class="fa fa-trash"></i></button>

@@ -23,6 +23,7 @@ class ContatoController extends Controller
 
         $contatos = Contato::all()->where('contato', '=', $request->contato);
         if (count($contatos) != 0){
+            flash('Contato já com Existe!')->error();
             return redirect()->back();
         }else{
             if ($contato->save()){

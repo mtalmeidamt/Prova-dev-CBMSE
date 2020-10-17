@@ -28,14 +28,4 @@
 
 </body>
 @includeIf('template.js')
-<script>
-    function verifica(value){
-        let contato = document.getElementById("contato");
-        if(value >= 1 && value <= 4){
-            contato.disabled = false;
-        }else{
-            contato.disabled = true;
-        }
-    }
-</script>
 </html>

@@ -104,8 +104,7 @@
                         <div class="row">
                             <div class="col">
                                 <label>Tipo Contato:</label>
-                                <select name="tipos_contatos_id" class="form-control" id="selectOption" onchange="verifica(this.value)">
-                                    <option value="" disabled selected>Selecione</option>
+                                <select name="tipos_contatos_id" class="form-control" id="selectOption">
                                     @foreach($tiposContatos as $tiposContato)
                                         <option value="{{$tiposContato->id}}">{{$tiposContato->descricao}}</option>
                                     @endforeach
@@ -116,7 +115,7 @@
                         <div class="row">
                             <div class="col">
                                 <label for="descricao">Descrição</label>
-                                <input type="text" class="form-control" id="contato" name="contato" placeholder="Informe o contato" disabled required>
+                                <input type="text" class="form-control" id="contato" name="contato" placeholder="Informe o contato" required>
                             </div>
                         </div>
                     </form>
@@ -137,14 +136,6 @@
     function pegarPessoa(id){
         var pessoa_id = document.getElementById('id_pessoa');
         pessoa_id.setAttribute('value', id);
-    }
-    function verifica(value){
-        let contato = document.getElementById("contato");
-        if(value >= 1 && value <= 4){
-            contato.disabled = false;
-        }else{
-            contato.disabled = true;
-        }
     }
 </script>
 </html>
