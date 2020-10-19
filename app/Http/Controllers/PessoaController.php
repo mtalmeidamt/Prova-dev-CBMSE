@@ -37,6 +37,7 @@ class PessoaController extends Controller
             flash('Pessoa Adicionada com Sucesso!')->success();
             return redirect()->route('pessoa.create');
         }else{
+            flash('Pessoa não adicionada!')->error();
             return redirect()->back();
         }
     }
@@ -48,7 +49,12 @@ class PessoaController extends Controller
      */
     public function destroy($id)
     {
-        Pessoa::query()->find($id)->delete();
-        return redirect()->route('pessoa.create');
+        if(Pessoa::query()->find($id)->delete()){
+            flash('Pessoa Excluida com Sucesso!')->success();
+            return redirect()->route('pessoa.create');
+        }else{
+            flash('Pessoa não excluida!')->error();
+            return redirect()->route('pessoa.create');
+        }
     }
 }

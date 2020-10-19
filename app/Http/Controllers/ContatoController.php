@@ -30,6 +30,7 @@ class ContatoController extends Controller
                 flash('Contato Salvo com Sucesso!')->success();
                 return redirect()->route('pessoa.create');
             }else{
+                flash('Contato não foi salvo!')->error();
                 return redirect()->back();
             }
         }
@@ -65,8 +66,10 @@ class ContatoController extends Controller
         $id->contato = $request->contato;
 
         if($id->save()){
+            flash('Contato Editado com Sucesso!')->success();
             return back();
         }else{
+            flash('Contato não editado!')->error();
             return back();
         }
     }
@@ -79,7 +82,15 @@ class ContatoController extends Controller
      */
     public function destroy($id)
     {
-        Contato::query()->find($id)->delete();
-        return back();
+        if(Contato::query()->find($id)->delete()){
+            flash('Contato Excluido com Sucesso!')->success();
+            return back();
+        }else{
+            flash('Contato não excluido!')->error();
+            return back();
+        }
+
+
+
     }
 }

@@ -8,6 +8,8 @@
     </div>
 </nav>
 <br>
+@include('flash::message')
+<br>
 
 <div class="container">
     <div class="col-12">
