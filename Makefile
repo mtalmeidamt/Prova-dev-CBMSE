@@ -4,4 +4,3 @@ deploy_dev:
 
 install_dep:
 	composer install
-	composer require laracasts/flash
