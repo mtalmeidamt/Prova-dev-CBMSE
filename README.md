@@ -14,4 +14,4 @@
     - 3.1 - composer install
     - 3.2 - php artisan migrate
     - 3.3 - php artisan make:seeder TiposContatosSeeder
- - 5.0 - localhost:8001
+ - 4.0 - localhost:8001
