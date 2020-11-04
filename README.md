@@ -9,8 +9,9 @@
 
 ## Passo a Passo
  - 1.0 - sudo make deploy_dev
- - 2.0 - sudo make install_dep
- - 3.0 - Acesse o container em seguida coloca o comando 
-    - 4.0 - php artisan key:generate
-    - 4.1 - php artisan migrate
+ - 2.0 - Acesse o container em seguida coloca o comando
+ - 3.0 - sudo docker exec -it agenda bash
+    - 3.1 - composer install
+    - 3.2 - php artisan migrate
+    - 3.3 - php artisan make:seeder TiposContatosSeeder
  - 5.0 - localhost:8001
